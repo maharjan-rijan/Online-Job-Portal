@@ -105,17 +105,20 @@ class Account(AbstractBaseUser):
         return True
 
 
-# class UserProfile(models.Model):
-#     user = models.OneToOneField(Account, on_delete=models.CASCADE)
-#     address_line_1 = models.CharField(blank=True, max_length=100)
-#     address_line_2 = models.CharField(blank=True, max_length=100)
-#     profile_picture = models.ImageField(blank=True, upload_to='userprofile')
-#     city = models.CharField(blank=True, max_length=20)
-#     state = models.CharField(blank=True, max_length=20)
-#     country = models.CharField(blank=True, max_length=20)
+class UserProfile(models.Model):
+    Gender =(
+        ('no','Select'),
+        ('male','Male'),
+        ('female','Female'),
+        ('other','Other'),
+    )
+    user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    profession_title = models.CharField(max_length=50)
+    date_of_birth = models.DateField()
+    current_address = models.CharField(blank=True, max_length=100)
+    permanent_address  = models.CharField(blank=True, max_length=100)
+    profile_picture = models.ImageField(blank=True, upload_to='userprofile')
+    gender = models.CharField(choices=Gender, max_length=20, default='no')
 
-#     def __str__(self):
-#         return self.user.first_name
-
-#     def full_address(self):
-#         return f'{self.address_line_1} {self.address_line_2}'
+    def __str__(self):
+        return self.user.first_name

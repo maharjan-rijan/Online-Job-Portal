@@ -89,7 +89,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     <h5 class="dropdown-item"><strong>{{ user.full_name }}</strong></h5>
     <hr>
-    <a class="dropdown-item" href="#">Editi Profile</a>
+    <a class="dropdown-item" href="{% url 'edit_profile' %}">Editi Profile</a>
     <a class="dropdown-item" href="#">Setting</a>
     <hr>
         <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
