@@ -8,6 +8,7 @@ from jobType.models import JobType
 class Job(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=255)
+    job_slug = models.SlugField(max_length=100, unique=True)
     job_type = models.ForeignKey(JobType, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     application_deadline = models.DateField(null=True)
@@ -23,3 +24,4 @@ class Job(models.Model):
 
     def __str__(self):
         return self.job_title
+

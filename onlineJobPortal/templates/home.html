@@ -202,7 +202,7 @@
                             </div>
                             <div class="job-content">
                                 <h4><a href="job-details.html">{{ job.job_title }}</a></h4>
-                                <p>{{ job.job_description }}</p>
+                                <p>{{ job.job_description|slice:90 }}</p>
                                 <ul>
                                     <li><a href="#">{{ job.company_website }}</a></li>
                                     <li>Rs. {{ job.salary }}</li>
@@ -270,10 +270,10 @@
             </div>
             <div class="single-head">
                 <div class="row">
-                    {% if jobs.is_featured %}
-                    {% for job in jobs %}
+                    {% if featured_paged_jobs %}
+                    {% for job in featured_paged_jobs %}
                     <div class="col-lg-4 col-md-6 col-12">
-                        <div class="single-job wow fadeInUp" data-wow-delay=".2s">
+                        <div class="single-job wow fadeInUp" data-wow-delay=".2s"> 
                             <div class="shape"></div>
                             <div class="feature">Featured</div>
                             <div class="image">
@@ -298,24 +298,24 @@
                     {% endif %}
                 </div>
                 <div class="row">
-                    {% if jobs.has_other_pages %}
+                    {% if featured_paged_jobs.has_other_pages %}
                     <div class="col-12">
                         <div class="pagination center">
                             <ul class="pagination-list">
-                                {% if jobs.has_previous %}
-                                <li><a href="?page={{jobs.previous_page_number}}"><i class="lni lni-arrow-left"></i></a></li>
+                                {% if featured_paged_jobs.has_previous %}
+                                <li><a href="?page={{featured_paged_jobs.previous_page_number}}"><i class="lni lni-arrow-left"></i></a></li>
                                 {% else %}
                                 <li class="disabled"><a href="#"><i class="lni lni-arrow-left"></i></a></li>
                                 {% endif %}
-                                {% for i in jobs.paginator.page_range %}
-                                {% if jobs.number == i %}
+                                {% for i in featured_paged_jobs.paginator.page_range %}
+                                {% if featured_paged_jobs.number == i %}
                                 <li class="active"><a href="#">{{i}}</a></li>
                                 {% else %}
                                 <li><a href="?page={{i}}">{{i}}</a></li>
                                 {% endif %}
                                 {% endfor %}
-                                {% if jobs.has_next %}
-                                <li><a href="?page={{products.next_page_number}}"><i class="lni lni-arrow-right"></i></a></li>
+                                {% if featured_paged_jobs.has_next %}
+                                <li><a href="?page={{featured_paged_jobs.next_page_number}}"><i class="lni lni-arrow-right"></i></a></li>
                                 {% else %}
                                 <li class="disabled"><a href="#"><i class="lni lni-arrow-right"></i></a></li>
                                 {% endif %}

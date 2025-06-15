@@ -64,3 +64,20 @@ def myJob(request):
         'page_title': 'Save Job'
     }
     return render(request,'job/manage-job.html',context)
+
+def editJob(request, job_id):
+    job = get_object_or_404(Job, id=job_id, user = request.user)
+    if request.method == 'POST':
+        form = JobForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            return redirect('jobList')
+    else:
+        form = JobForm(instance=job)
+
+    context = {
+        'job': job,
+        'form': form,
+        'page_title': 'Edit Job'
+    }
+    return render(request, 'admin/edit-job.html', context)

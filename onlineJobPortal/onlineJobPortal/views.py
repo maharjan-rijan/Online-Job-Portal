@@ -5,16 +5,18 @@ from django.core.paginator import Paginator
 
 def home(request):
     jobs = Job.objects.all().order_by('job_post_date')
-    featured_job = Job.objects.all().filter(is_featured = True).order_by('job_post_date')
+    featured_jobs = Job.objects.filter(is_featured=True).order_by('job_post_date')
+
     paginator = Paginator(jobs, 4)
-    featu_page = Paginator(featured_job, 9)
     page = request.GET.get('page')
     paged_jobs = paginator.get_page(page)
-    futured_paged = featu_page.get_page(page)
+
+    featured_paginator = Paginator(featured_jobs, 9)
+    featured_page = request.GET.get('featured_jobs_page')
+    featured_paged_jobs = featured_paginator.get_page(featured_page)
     context = {
         'jobs': paged_jobs,
-        'featured_jobs' : futured_paged,
-
+        'featured_paged_jobs':featured_paged_jobs
     }
     return render(request, 'home.html', context)
 

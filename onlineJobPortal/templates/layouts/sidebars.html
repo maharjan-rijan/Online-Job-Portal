@@ -10,13 +10,11 @@
                                 <li><a href="notifications.html"><i class="lni lni-alarm"></i> Notifications <span
                                             class="notifi">5</span></a></li>
                                             {% if user.is_staff %}
-                                            <li><a href="bookmarked.html"><i class="lni lni-bookmark"></i> Saved
-                                        Jobs</a></li>
-                                        <li><a href="bookmarked.html"><i class="lni lni-bookmark"></i> Applied
+                                            <li><a href="bookmarked.html"><i class="lni lni-bookmark"></i> Saved Jobs</a></li>
+                                        <li><a href="bookmarked.html"><i class="lni lni-checkmark"></i> Applied
                                         Jobs</a></li>
                                         {% elif user.is_admin %}
-                                        <li><a href="manage-applications.html"><i class="lni lni-envelope"></i> Manage
-                                        Applications</a></li>
+                                        <li><a href="manage-applications.html"><i class="lni lni-envelope"></i> Manage Applications</a></li>
                                 <li><a class="{% active_link 'myjob' %}" href="{% url 'myjob' %}"><i class="lni lni-briefcase"></i> My Jobs</a></li>
                                 {% else %}
                                 
@@ -26,3 +24,5 @@
                             </ul>
                         </div>
                     </div>
+
+                    
