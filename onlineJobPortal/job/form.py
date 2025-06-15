@@ -25,7 +25,7 @@ class JobForm(forms.ModelForm):
     )
     class Meta:
         model = Job
-        fields = ['job_title', 'job_type', 'category', 'application_deadline', 'salary', 'job_description', 'job_requirements', 'company_name', 'company_location', 'company_website', 'is_featured', 'job_post_date']
+        fields = ['job_title','job_slug','job_type', 'category', 'application_deadline', 'salary', 'job_description', 'job_requirements', 'company_name', 'company_location', 'company_website', 'is_featured', 'job_post_date']
         widgets = {
             'application_deadline': forms.DateInput(attrs={'type': 'date'}),
             'job_post_date': forms.DateInput(attrs={'type': 'date'}),
@@ -42,6 +42,7 @@ class JobForm(forms.ModelForm):
         'type': 'date'
                 })
         self.fields['job_title'].widget.attrs['placeholder'] = 'Enter Job Title'
+        self.fields['job_slug'].widget.attrs['placeholder'] = 'Enter Job slug'
         self.fields['salary'].widget.attrs['placeholder'] = 'Enter Salary'
         self.fields['job_description'].widget.attrs['placeholder'] = ''
         self.fields['job_requirements'].widget.attrs['placeholder'] = ''

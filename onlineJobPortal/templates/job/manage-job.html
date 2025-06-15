@@ -24,6 +24,7 @@
                         <div class="job-items">
                             {% if my_job %}
                             <div class="manage-list">
+                                {% include "layouts/alerts.html" %}
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-12 text-center">
                                         <p>Name</p>
@@ -52,8 +53,13 @@
                                         <p><span class="time">{{ job.application_deadline }}</span></p>
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-12 text-center">
-                                        <a href="{% url 'editJob' job.id %}"><i class=" btn- lni lni-pencil mr-3" style="font-size: 24px;"></i></a>
-                                        <a href="#"><i class="btn- lni lni-trash" style="font-size: 24px;"></i></a>
+                                        <a href="{% url 'editJob' job.id %}"><i class=" btn- lni lni-pencil m-2" style="font-size: 24px;"></i></a>
+                                        {% if request.user == job.user or request.user.is_superuser %}
+                                                <form action="{% url 'deleteJob' job.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this job?');">
+                                                     {% csrf_token %}
+                                                     <a href="{% url 'deleteJob' job.id %}" onsubmit="return confirm('Are you sure you want to delete this job?');"><i class="btn- lni lni-trash" type="submit" style="font-size: 24px;"></i></a>
+                                                    </form>
+                                                    {% endif %}
                                     </div>
                                 </div>
                             </div>

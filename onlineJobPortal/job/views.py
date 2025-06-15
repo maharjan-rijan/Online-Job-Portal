@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404,redirect
-
+from django.contrib import messages
 from category.models import Category
 from django.core.paginator import Paginator
 from .form import JobForm
@@ -14,6 +14,7 @@ def postJob(request):
             job = form.save(commit=False)
             job.user = request.user
             job.save()
+            messages.success(request, "Job Posted successfully.")
             return redirect('jobList')
     else:
         form= JobForm()
@@ -71,6 +72,7 @@ def editJob(request, job_id):
         form = JobForm(request.POST, instance=job)
         if form.is_valid():
             form.save()
+            messages.success(request, "Job Updated successfully.")
             return redirect('jobList')
     else:
         form = JobForm(instance=job)
@@ -81,3 +83,12 @@ def editJob(request, job_id):
         'page_title': 'Edit Job'
     }
     return render(request, 'admin/edit-job.html', context)
+
+def deleteJob(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    if request.user == job.user or request.user.is_superuser:
+        job.delete()
+        messages.success(request, "Job deleted successfully.")
+    else:
+        messages.error(request, "You do not have permission to delete this job.")
+    return redirect('jobList')
