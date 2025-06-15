@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .forms import UserRegistrationForm, UserForm, AdminRegistrationForm,UserProfileForm
-from .models import Account, UserProfile
+from django.shortcuts import render, redirect
+
+from job.models import Job
+from .forms import UserRegistrationForm, AdminRegistrationForm
+from .models import Account
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -89,10 +92,12 @@ def login(request):
         password = request.POST['password']
 
         user = auth.authenticate(email=email, password=password)
-        if user is not None:
+        if (user is not None ):
             auth.login(request, user)
             messages.success(request, 'You are now logged in.')
             return redirect('home')
+        elif user.is_superuser == True:
+            return redirect('login')
         else:
             messages.error(request, 'Invalid User')
             return redirect('login')
@@ -206,21 +211,19 @@ def changePassword(request):
 
 @login_required(login_url='login')
 def edit_profile(request):
-    userprofile = get_object_or_404(UserProfile, user=request.user)
-    if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, 'Your profile has been updated.')
-            return redirect('edit_profile')
-    else:
-        user_form = UserForm(instance=request.user)
-        profile_form = UserProfileForm(instance=userprofile)
+    return render(request, 'accounts/edit_profile.html')
+
+@login_required(login_url='login')
+def dashboard(request):
+    return render(request, 'pages/dashboard.html')
+
+@login_required(login_url='login')
+def manageJob(request):
+    jobs = Job.objects.all().order_by('id')
+    paginator = Paginator(jobs, 4)
+    page = request.GET.get('page')
+    paged_jobs = paginator.get_page(page)
     context = {
-        'user_form': user_form,
-        'profile_form': profile_form,
-        'userprofile': userprofile,
-    }
-    return render(request, 'accounts/edit_profile.html', context)
+        'jobs': paged_jobs,
+                }
+    return render(request,'job/manage-job.html', context)

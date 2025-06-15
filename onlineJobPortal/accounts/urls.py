@@ -3,6 +3,8 @@ from . import views
 
 
 urlpatterns = [
+    path('dashboard/', views.dashboard, name='dashboard'),
+
     path('register/', views.register, name='register'),
     path('register/user-register/', views.user_register, name='user_register'),
     path('register/admin-register', views.admin_register, name='admin_register'),
@@ -16,5 +18,10 @@ urlpatterns = [
 
     path('change_password/', views.changePassword, name='changePassword'),
     path('edit_profile/', views.edit_profile, name='edit_profile'),
+
+    path('manage-job/', views.manageJob, name='managejob'),
+
+    # path('my-job/', views.myJob, name='managejob'),
+
 
 ]

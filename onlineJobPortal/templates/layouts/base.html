@@ -52,8 +52,6 @@
                                    {% if user.is_staff is True %}
                                     <li class="nav-item"><a href="#">Candidates</a>
                                         <ul class="sub-menu">
-                                            <li><a href="browse-jobs.html">Browse Jobs</a></li>
-                                            <li><a href="browse-categories.html">Browse Categories</a></li>
                                             <li><a href="add-resume.html">Add Resume</a></li>
                                             <li><a href="job-alerts.html">Job Alerts</a></li>
                                         </ul>
@@ -61,7 +59,7 @@
                                     {% elif user.is_admin is True %}
                                     <li class="nav-item"><a href="#">Employers </a>
                                         <ul class="sub-menu">
-                                            <li><a href="post-job.html">Add Job</a></li>
+                                            <li><a href="{% url 'postJob' %}">Add Job</a></li>
                                             <li><a href="manage-jobs.html">Manage Jobs</a></li>
                                             <li><a href="manage-applications.html">Manage Applications</a></li>
                                             <li><a href="manage-resumes.html">Manage Resume</a></li>
@@ -87,13 +85,11 @@
    {{ user.first_name }}
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <h5 class="dropdown-item"><strong>{{ user.full_name }}</strong></h5>
-    <hr>
-    <a class="dropdown-item" href="{% url 'edit_profile' %}">Editi Profile</a>
-    <a class="dropdown-item" href="#">Setting</a>
-    <hr>
-        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-
+     <li><h6 class="dropdown-header">{{ user.full_name }}</h6></li>
+       <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+  <li><a class="dropdown-item" href="#">Setting</a></li>
+    <li><hr class="dropdown-divider"></li>
+  <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
 
   </div>
 </div>

@@ -2,23 +2,7 @@
 {% load static %}
 {% block title %} Contact Us {% endblock %}
 {% block content %}
- <div class="breadcrumbs overlay">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumbs-content">
-                        <h1 class="page-title">Contact Us</h1>
-                        <p>Business plan draws on a wide range of knowledge from different business<br> disciplines.
-                            Business draws on a wide range of different business .</p>
-                    </div>
-                    <ul class="breadcrumb-nav">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li>Contact Us</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+{% include "layouts/breadcrumb.html" %}
     <section id="contact-us" class="contact-us section">
         <div class="container">
             <div class="contact-head wow fadeInUp" data-wow-delay=".4s">

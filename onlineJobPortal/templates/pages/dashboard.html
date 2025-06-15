@@ -1,0 +1,84 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block title %} Saved Job {% endblock %}
+{% block content %}
+       <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Dashboard</h1>
+                        <p>Hello {{ user.full_name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+   <div class="resume section">
+        <div class="container">
+            <div class="resume-inner">
+                <div class="row">
+                   {% include "layouts/sidebars.html" %}
+                    <div class="col-lg-8 col-12">
+                        <div class="inner-content">
+                            <!-- Start Personal Top Content -->
+                            <div class="personal-top-content">
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-5 col-12">
+                                        <div class="name-head">
+                                            <a class="mb-2" href="#"><img class="circle-54"
+                                                    src="assets/images/resume/avater.png" alt=""></a>
+                                            <h4><a class="name" href="#">{{ user.full_name }}</a></h4>
+                                            <p><a class="deg" href="#">{{ user.username }}</a></p>
+                                            <ul class="social">
+                                                <li><a href="#"><i class="lni lni-facebook-original"></i></a></li>
+                                                <li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
+                                                <li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
+                                                <li><a href="#"><i class="lni lni-dribbble"></i></a></li>
+                                                <li><a href="#"><i class="lni lni-pinterest"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-7 col-12">
+                                        <div class="content-right">
+                                            <h5 class="title-main">Contact Info</h5>
+                                            <!-- Single List -->
+                                            <div class="single-list">
+                                                <h5 class="title">Location</h5>
+                                                <p>New York , USA</p>
+                                            </div>
+                                            <!-- Single List -->
+                                            <!-- Single List -->
+                                            <div class="single-list">
+                                                <h5 class="title">E-mail</h5>
+                                                <p>{{ user.email }}</p>
+                                            </div>
+                                            <!-- Single List -->
+                                            <!-- Single List -->
+                                            <div class="single-list">
+                                                <h5 class="title">Phone</h5>
+                                                <p>{{ user.phone_number }}</p>
+                                            </div>
+                                            <!-- Single List -->
+                                            <!-- Single List -->
+                                            <div class="single-list">
+                                                <h5 class="title">Website Linked</h5>
+                                                <p><a href="#">yourwebsite.com</a></p>
+                                            </div>
+                                            <!-- Single List -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Personal Top Content -->
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

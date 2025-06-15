@@ -1,0 +1,28 @@
+<!-- Start Main Content -->
+ {% load static %}
+{% load active_link_tags %}
+
+                    <div class="col-lg-4 col-12">
+                        <div class="dashbord-sidebar">
+                            <ul>
+                                <li class="heading">Manage Account</li>
+                                <li><a class="{% active_link 'dashboard' %}" href="{% url 'dashboard' %}"><i class="lni lni-clipboard"></i> My Resume</a></li>
+                                <li><a href="notifications.html"><i class="lni lni-alarm"></i> Notifications <span
+                                            class="notifi">5</span></a></li>
+                                            {% if user.is_staff %}
+                                            <li><a href="bookmarked.html"><i class="lni lni-bookmark"></i> Saved
+                                        Jobs</a></li>
+                                        <li><a href="bookmarked.html"><i class="lni lni-bookmark"></i> Applied
+                                        Jobs</a></li>
+                                        {% elif user.is_admin %}
+                                        <li><a href="manage-applications.html"><i class="lni lni-envelope"></i> Manage
+                                        Applications</a></li>
+                                <li><a class="{% active_link 'myjob' %}" href="{% url 'myjob' %}"><i class="lni lni-briefcase"></i> My Jobs</a></li>
+                                {% else %}
+                                
+                                {% endif %}
+                                <li><a class="{% active_link 'changePassword' %}" href="{% url 'changePassword' %}"><i class="lni lni-lock"></i> Change Password</a></li>
+                                <li><a href="{% url 'logout' %}"><i class="lni lni-upload"></i> Sign Out</a></li>
+                            </ul>
+                        </div>
+                    </div>

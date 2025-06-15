@@ -1,0 +1,80 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% block title %} Post Job {% endblock %}
+{% block content %}
+    {% include "layouts/breadcrumb.html" %}
+    <section class="job-post section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1 col-12">
+                    <div class="job-information">
+                        <h3 class="title">Job Information</h3>
+                        <form action="{% url 'postJob' %}" method="POST">
+                            {% csrf_token %}
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-6">
+                                        <label>Job title<span class="text-danger"> *</span></label>
+                                        {{ form.job_title }}
+                                </div>
+                                <div class="col-lg-6 col-md-6 mt-3">
+                                        <label>Category <span class="text-danger"> *</span></label>
+                                        {{ form.category }}
+                                </div>
+                                <div class="col-lg-6 col-md-6 mt-3">
+                                        <label>Job Types <span class="text-danger"> *</span></label>
+                                        {{ form.job_type }}                                
+                                    </div>
+                                <div class="col-lg-6 col-md-6 mt-3">
+                                        <label>Application Deadline</label>
+                                        {{ form.application_deadline }}
+                                </div>
+                                <div class="col-lg-6 col-md-6 mt-3">
+                                        <label>Salary</label>
+                                        {{ form.salary }}
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                        <label>Job Description <span class="text-danger"> *</span></label>
+                                        {{ form.job_description }}
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                        <label>Job Requirements <span class="text-danger"> *</span></label>
+                                        {{ form.job_requirements }}
+                                </div>
+                            </div>
+                            <h3 class="title mt-4">Company Information</h3>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                        <label>Company Name</label>
+                                        {{ form.company_name }}
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                        <label>Company Website</label>
+                                        {{ form.company_website }}
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                        <label>Company Location</label>
+                                        {{ form.company_location }}
+                                </div>
+                            </div>
+                            <h3 class="title mt-4">Additional Information</h3>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                        <label>Featured Job</label>
+                                        {{ form.is_featured }}
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                        <label>Job Posted Date</label>
+                                        {{ form.job_post_date }}
+                                </div>
+                                <div class="col-lg-12 button">
+                                    <button type="submit" class="btn btn-primary mt-4">Post Job</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

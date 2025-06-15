@@ -1,0 +1,17 @@
+ <div class="breadcrumbs overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">{% block secondTitle %} {{ page_title|default:" "}} {% endblock  %}</h1>
+                        <p>Business plan draws on a wide range of knowledge from different business<br> disciplines.
+                            Business draws on a wide range of different business .</p>
+                    </div>
+                    <ul class="breadcrumb-nav">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li>{% block breadcrumbTitle %} {{ page_title|default:" "}} {% endblock  %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

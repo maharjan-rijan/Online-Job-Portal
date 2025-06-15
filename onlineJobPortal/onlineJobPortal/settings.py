@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'category',
     'accounts',
     'jobType',
-]
+    'decouple',
+    'job',
+    'active_link',
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
