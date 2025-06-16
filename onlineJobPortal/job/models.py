@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from accounts.models import Account
 from category.models import Category
@@ -21,6 +22,9 @@ class Job(models.Model):
 
     is_featured = models.BooleanField(default=False)
     job_post_date = models.DateTimeField(null=True)
+
+    def get_url(self):
+        return reverse('jobDetail',args=[self.category.slug, self.job_slug])
 
     def __str__(self):
         return self.job_title

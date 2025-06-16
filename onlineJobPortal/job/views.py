@@ -45,8 +45,14 @@ def jobList(request, category_slug=None):
     }
     return render(request, 'job/job-list.html',context)
 
-def jobDetails(request):
+def jobDetails(request, category_slug, job_slug):
+    try:
+        single_job = Job.objects.get(category__slug=category_slug, job_slug=job_slug)
+        
+    except Exception as e:
+        raise e
     context = {
+        'single_job':single_job,
         'page_title': 'Job Detail'
     }
     return render(request, 'job/job-details.html',context)

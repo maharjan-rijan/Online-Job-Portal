@@ -34,7 +34,7 @@
                                 <img src="assets/images/jobs/img1.png" alt="#">
                             </div>
                             <div class="job-content">
-                                <h4><a href="job-details.html">{{ job.job_title }}</a></h4>
+                                <h4><a href="{{ job.get_url }}">{{ job.job_title }}</a></h4>
                                 <p>We are looking for Enrollment Advisors who are looking to take 30-35 appointments per
                                     week. All leads are pre-scheduled. </p>
                                 <ul>
@@ -45,7 +45,7 @@
                             </div>
                             <div class="job-button">
                                 <ul>
-                                    <li><a href="job-details.html">Apply</a></li>
+                                    <li><a href="{{ job.get_url }}">Apply</a></li>
                                     <li><span>{{ job.job_type }}</span></li>
                                 </ul>
                             </div>
