@@ -1,3 +1,7 @@
 .env
-/onlineJobPortal/onlineJob.sqlite3
-.__pycache__ /
+onlineJob.sqlite3
+accounts/__pycache__/
+category/__pycache__/
+job/__pycache__/
+jobType/__pycache__/
+onlineJobPortal/__pycache__/
