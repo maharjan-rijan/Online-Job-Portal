@@ -90,14 +90,14 @@ def login(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-
+        remember_pass = request.POST.get('gridCheck')
         user = auth.authenticate(email=email, password=password)
+        
+        
         if (user is not None ):
             auth.login(request, user)
             messages.success(request, 'You are now logged in.')
             return redirect('home')
-        elif user.is_superuser == True:
-            return redirect('login')
         else:
             messages.error(request, 'Invalid User')
             return redirect('login')

@@ -1,104 +1,260 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 {% block content %}
+<style>
+    .tab-content {
+        display: none;
+    }
+    .tab-content.active {
+        display: block;
+    }
+
+    .step-tabs {
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .step-tabs li {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        padding: 10px 0;
+        font-weight: 500;
+        color: #999;
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+    }
+
+    .step-tabs li.active {
+        color: #007bff;
+        border-color: #007bff;
+    }
+
+    .step-tabs li::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        height: 10px;
+        width: 1px;
+        background-color: #ccc;
+        transform: translateY(-50%);
+    }
+
+    .step-tabs li:last-child::after {
+        display: none;
+    }
+</style>
+
 <section class="add-resume section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1 col-12">
-                    <div class="add-resume-inner box">
-                        <div class="post-header align-items-center justify-content-center">
-                            <h3>Basic information</h3>
-                        </div>
-                        <form class="form-ad" action="{% url 'edit_profile' %}" method="POST">
-                            {% csrf_token %}
-                          <div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 col-12">
+                <div class="add-resume-inner box">
 
-                                     <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Choose Profile Picture </label>
-                                        <input type="file" class="form-control">
-                                        <label for="username" class="control-label">User Name</label>
-                                         <input type="text" class="form-control" name="username" id="username" readonly>
-                                    </div>
-                                </div> 
-                                <div class="col-lg-4 col-12 align-items-end justify-content-end">
-                                    <div class="form-group justify-content-end">
-                                       <div class="justify-content-end">
-                                        <img src="{{userprofile.profile_picture.url}}" class="rounded mx-auto d-block border border-dark" alt="Logo" width="100px"/>        
-                                            </div>
-                                    </div>
-                                </div> 
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label class="control-label">First Name</label>
-                                        {{ user_form.first_name }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Last Name</label>
-                                        {{ user..last_name }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label class="control-label">Email</label>
-                                        {{ user_form.email }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label for="profession_title" class="control-label">Profession Title</label>
-                                        <input type="text" class="form-control"
-                                            placeholder="Headline (e.g. Front-end developer)" name="profession_title">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="date_of_birth" class="control-label">Date of Birth</label>
-                                     <input type="date" class="form-control" name="date_of_birth" id="date_of_birth">
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label for="current_address" class="control-label">Current Address</label>
-                                        <input type="text" class="form-control" placeholder="Current Address" name="current_address" id="current_address">
-                                    </div>
-                                </div>
+                    <!-- Step Navigation Tabs -->
+                    <ul class="step-tabs" id="stepTabs">
+                        <li class="active" onclick="showTab(0)">Basic Info</li>
+                        <li onclick="showTab(1)">Education</li>
+                        <li onclick="showTab(2)">Experience</li>
+                        <li onclick="showTab(3)">Additional</li>
+                    </ul>
 
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group">
-                                        <label for="permanent_address" class="control-label">Permenent Address</label>
-                                        <input type="text" class="form-control" placeholder="Permenent Address" name="permanent_address" id="permanent_address">
-                                    </div>
+                    <form class="form-ad" action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Step 1: Basic Info -->
+                        <div class="tab-content active">
+                            <h4>Basic Information</h4>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label>Profile Picture</label>
+                                    <input type="file" name="profile_picture" class="form-control mb-2">
+                                    <label>User Name</label>
+                                    <input type="text" class="form-control" value="{{ user.username }}" name="username" readonly>
                                 </div>
-                                <div class="col-lg-12 col-12">
-                                    <div class="form-group">
-                                        <label for="gender" class="control-label">Gender</label>
-                                        <select id="gender" class="form-control">
-                                            <option selected>--Select--</option>
-                                         <option>Male</option>
-                                         <option>Female</option>
-                                         <option>Other</option>
-                                        </select>
-                                    </div>
+                                <div class="col-lg-6">
+                                    <label>Current Picture</label><br>
+                                    <img src="{{ userprofile.profile_picture.url }}" width="100" class="border rounded">
                                 </div>
-                                 <div class="col-lg-12 col-12">
-                                    <div class="form-group">
-                                        <label for="phone_number" class="control-label">Contact Number</label>
-                                        <input type="text" class="form-control" placeholder="Contact Number" name="phone_number" id="phone_number">
-                                    </div>
+                                <div class="col-lg-6">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" name="email" value="{{ user.email }}">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Profession Title</label>
+                                    <input type="text" class="form-control" name="profession_title">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Date of Birth</label>
+                                    <input type="date" class="form-control" name="date_of_birth">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Gender</label>
+                                    <select name="gender" class="form-control">
+                                        <option value="">--Select--</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                 <div class="col-lg-12">
+                                    <label>Current Address</label>
+                                    <input type="text" class="form-control" name="current_address">
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Permanent Address</label>
+                                    <input type="text" class="form-control" name="permanent_address">
+                                </div>
+                                 <div class="col-lg-12">
+                                    <label>Mobile Number</label>
+                                    <input type="text" class="form-control" name="phone_number">
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Major Skills</label>
+                                    <input type="text" class="form-control" name="skills">
                                 </div>
                             </div>
-                             
-                                <div class="col-lg-12 col-12">
-                                    <button type="submit" class="btn btn-primary btn">Save</button>
+                            <div class="d-flex justify-content-end mt-4">
+                                <button type="button" class="btn btn-primary" onclick="showTab(1)">Next</button>
+                            </div>
+                        </div>
 
+                       <!-- Step 2: Education -->
+<div class="tab-content">
+    <h4>Education Details</h4>
+
+    <div id="education-container">
+        <div class="education-entry border p-3 mb-3 rounded position-relative">
+            <!-- Remove Button -->
+            <button type="button" class="btn btn-sm btn-danger justify-content-end top-0 end-0 m-2 remove-btn" onclick="removeEducation(this)">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="row">
+                <div class="col-lg-12">
+                    <label>Educational Degree</label>
+                    <input type="text" name="degree[]" class="form-control" placeholder="e.g. BSc in IT">
+                </div>
+                <div class="col-lg-12">
+                    <label>Educational Board</label>
+                    <input type="text" name="educational_board[]" class="form-control" placeholder="e.g. ABC University">
+                </div>
+                <div class="col-lg-12">
+                    <label>Name of Institution/College</label>
+                    <input type="text" name="institution_name[]" class="form-control" placeholder="e.g. Computer Science">
+                </div>
+                <div class="col-lg-12">
+                    <label>Year of Graduation</label>
+                    <input type="text" name="graduation_year[]" class="form-control" placeholder="e.g. 2024">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="text-end">
+        <button type="button" class="btn btn-sm btn-outline-primary" onclick="addEducation()">Add Education</button>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <button type="button" class="btn btn-secondary" onclick="showTab(0)">Previous</button>
+        <button type="button" class="btn btn-primary" onclick="showTab(2)">Next</button>
+    </div>
+</div>
+   
+                        <!-- Step 3: Working Experience -->
+                        <div class="tab-content">
+                            <h4>Working Experiences</h4>
+                            <div class="form-group">
+                                <label>Experience Details</label>
+                                <textarea name="experience_details" class="form-control" rows="5" placeholder="Describe your work experience..."></textarea>
+                            </div>
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-secondary" onclick="showTab(1)">Previous</button>
+                                <button type="button" class="btn btn-primary" onclick="showTab(3)">Next</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Additional Info -->
+                        <div class="tab-content">
+                            <h4>Additional Information</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label>Facebook </label>
+                                    <input type="text" class="form-control" name="facebook_url" placeholder="facebook_url">
                                 </div>
-                            </div>                     
-                        </form>
-                    </div>
+                                 <div class="col-lg-12">
+                                    <label>LinkedIn </label>
+                                    <input type="text" class="form-control" name="linkedin_url" placeholder="linkedin_url">
+                                </div> <div class="col-lg-12">
+                                    <label>Instagram </label>
+                                    <input type="text" class="form-control" name="instagram_url" placeholder="instagram_url">
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Website </label>
+                                    <input type="text" class="form-control" name="website" placeholder="website">
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-4">
+                                   <button type="button" class="btn btn-secondary" onclick="showTab(3)">Previous</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+<script>
+    const tabs = document.querySelectorAll(".tab-content");
+    const steps = document.querySelectorAll("#stepTabs li");
+
+    function showTab(index) {
+        tabs.forEach((tab, i) => {
+            tab.classList.toggle("active", i === index);
+        });
+        steps.forEach((step, i) => {
+            step.classList.toggle("active", i === index);
+        });
+        window.scrollTo(0, 0);
+    }
+
+    function addEducation() {
+        const container = document.getElementById("education-container");
+        const entry = container.querySelector(".education-entry");
+        const newEntry = entry.cloneNode(true);
+
+        // Clear all input values in the new clone
+        newEntry.querySelectorAll("input").forEach(input => input.value = "");
+
+        // Enable remove button on clone
+        const removeBtn = newEntry.querySelector(".remove-btn");
+        removeBtn.classList.remove("d-none");
+
+        container.appendChild(newEntry);
+    }
+    function removeEducation(button) {
+        const container = document.getElementById("education-container");
+        const entry = button.closest(".education-entry");
+
+        // Only remove if more than one entry exists
+        if (container.querySelectorAll(".education-entry").length > 1) {
+            entry.remove();
+        }
+    }
+</script>
 
 {% endblock %}

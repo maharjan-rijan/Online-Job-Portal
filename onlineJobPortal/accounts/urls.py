@@ -12,12 +12,11 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
 
     path('activate/<uidb64>/<token>/', views.activate, name='activate'),
-    path('forgotPassword/', views.forgotPassword, name='forgotPassword'),
-    path('resetpassword_validate/<uidb64>/<token>/', views.resetpassword_validate, name='resetpassword_validate'),
-    path('resetPassword/', views.resetPassword, name='resetPassword'),
-
-    path('change_password/', views.changePassword, name='changePassword'),
-    path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('forgot-password/', views.forgotPassword, name='forgotPassword'),
+    path('resetpassword-validate/<uidb64>/<token>/', views.resetpassword_validate, name='resetpassword_validate'),
+    path('reset-password/', views.resetPassword, name='resetPassword'),
+    path('change-password/', views.changePassword, name='changePassword'),
+    path('edit-profile/', views.edit_profile, name='edit_profile'),
 
     path('manage-job/', views.manageJob, name='managejob'),
 

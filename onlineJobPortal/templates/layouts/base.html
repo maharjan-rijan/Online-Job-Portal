@@ -43,27 +43,21 @@
                                 <ul id="nav" class="navbar-nav ml-auto">
                                     <li class="nav-item"><a href="{% url 'home' %}">Home</a> </li>
                                     <li class="nav-item"><a href="{% url 'aboutUs' %}">About Us </a> </li>
-                                    <li class="nav-item"><a href="#">Jobs</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="{% url 'jobList' %}">Job List</a></li>
-                                            {% comment %} <li><a href="{% url 'jobDetail' category_slug job_slug %}">Job Details</a></li>           {% endcomment %}
-                                        </ul>
-                                    </li>
                                    {% if user.is_staff is True %}
                                     <li class="nav-item"><a href="#">Candidates</a>
                                         <ul class="sub-menu">
-                                            <li><a href="add-resume.html">Add Resume</a></li>
-                                            <li><a href="job-alerts.html">Job Alerts</a></li>
+                                            <li><a href="{% url 'jobList' %}">Job List</a></li>
+                                            <li><a href="#">Add Resume</a></li>
+                                            <li><a href="#">Job Alerts</a></li>
                                         </ul>
                                     </li>
                                     {% elif user.is_admin is True %}
                                     <li class="nav-item"><a href="#">Employers </a>
                                         <ul class="sub-menu">
-                                            <li><a href="{% url 'postJob' %}">Add Job</a></li>
-                                            <li><a href="manage-jobs.html">Manage Jobs</a></li>
-                                            <li><a href="manage-applications.html">Manage Applications</a></li>
-                                            <li><a href="manage-resumes.html">Manage Resume</a></li>
-                                            <li><a href="browse-resumes.html">Browse Resumes</a></li>
+                                            <li><a href="#">Manage Jobs</a></li>
+                                            <li><a href="#">Manage Applications</a></li>
+                                            <li><a href="#">Manage Resume</a></li>
+                                            <li><a href="#">Browse Resumes</a></li>
                                         </ul>
                                     </li>
                                     {% else %}
@@ -87,7 +81,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
      <li><h6 class="dropdown-header">{{ user.full_name }}</h6></li>
        <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
-  <li><a class="dropdown-item" href="#">Setting</a></li>
+  <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Setting</a></li>
     <li><hr class="dropdown-divider"></li>
   <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
 

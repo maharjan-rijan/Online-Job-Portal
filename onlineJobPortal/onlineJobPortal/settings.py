@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'decouple',
     'job',
     'active_link',
+    'company',
     ]
 
 MIDDLEWARE = [
