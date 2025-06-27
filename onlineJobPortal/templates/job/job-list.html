@@ -2,17 +2,18 @@
 {% load static %}
 {% block title %} Job List {% endblock %}
 {% block content %}
-   {% include "layouts/breadcrumb.html" %}
+    {% include "layouts/breadcrumb.html" %}
     <section class="find-job job-list section">
-        <div class="search-job">
+       <form action="{% url 'search' %}" method="GET">
+         <div class="search-job">
             <div class="container">
                 <div class="search-nner">
                     <div class="row">
                         <div class="col-lg-5 col-md-5 col-xs-12">
-                            <input type="text" class="form-control" placeholder="Keyword: Name, Tag">
+                            <input type="text" class="form-control" placeholder="Keyword: Name, Tag" name="keyword">
                         </div>
                         <div class="col-lg-5 col-md-5 col-xs-12">
-                            <input type="text" class="form-control" placeholder="Location: City, State, Zip">
+                            <input type="text" class="form-control" placeholder="Location: City, State, Zip"name="location">
                         </div>
                         <div class="col-lg-2 col-md-2 col-xs-12 button">
                             <button type="submit" class="btn btn-common float-right">Filter</button>
@@ -21,6 +22,7 @@
                 </div>
             </div>
         </div>
+       </form>
         <div class="container">
             <div class="single-head">
                 {% include "layouts/alerts.html" %}

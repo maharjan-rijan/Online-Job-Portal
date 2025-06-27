@@ -27,5 +27,5 @@ urlpatterns = [
     path('contact-us/', views.contactUs, name='contactUs'),
     path('accounts/', include('accounts.urls')),
     path('jobs/', include('job.urls')),
-
+    path('search/', views.search, name='search')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

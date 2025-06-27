@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from job.models import Job
 from django.core.paginator import Paginator
-
+from django.db.models import Q
 
 def home(request):
     jobs = Job.objects.all().order_by('job_post_date')
@@ -37,3 +37,15 @@ def contactUs(request):
         'page_title': 'Contact Us'
     }
     return render(request, 'contact-us.html',context)
+
+def search(request):
+    if ('keyword' in request.GET) | ('location' in request.GET):
+        keyword = request.GET['keyword']
+        location = request.GET['location']
+        if keyword or location:
+            jobs = Job.objects.order_by('job_post_date').filter(Q(job_description__icontains=keyword)|Q(job_title__icontains=keyword)|Q(company_location=location))
+    context={
+        'jobs':jobs,
+        'page_title': 'Job List'
+    }
+    return render(request, 'job/job-list.html', context)

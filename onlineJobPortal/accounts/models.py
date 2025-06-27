@@ -49,8 +49,7 @@ class MyAccountManager(BaseUserManager):
 
         user.set_password(password)
         user.save(using=self._db)
-        return user
-    
+        return user 
 
     def create_superuser(self, first_name, last_name, email, username, password):
         user = self.create_user(
@@ -67,18 +66,16 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
-
 class Account(AbstractBaseUser):
     first_name      = models.CharField(max_length=50)
     last_name       = models.CharField(max_length=50)
     username        = models.CharField(max_length=50, unique=True)
     email           = models.EmailField(max_length=100, unique=True)
     phone_number    = models.CharField(max_length=50)
-
+    
     company_name    = models.CharField(max_length=300, blank=True, null=True)
     company_address = models.TextField( blank=True, null=True)
-
+    
     # required
     date_joined     = models.DateTimeField(auto_now_add=True)
     last_login      = models.DateTimeField(auto_now_add=True)
@@ -103,7 +100,6 @@ class Account(AbstractBaseUser):
 
     def has_module_perms(self, add_label):
         return True
-
 
 class UserProfile(models.Model):
     Gender =(

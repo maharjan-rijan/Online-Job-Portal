@@ -18,7 +18,7 @@
                             </div>
                             <div class="job-search-wrap-two mt-50 wow fadeInUp" data-wow-delay=".7s">
                                 <div class="job-search-form">
-                                    <form action="#">
+                                    <form action="{% url 'search' %}" method="GET"> 
                                         <!-- Single Field Item Start  -->
                                         <div class="single-field-item keyword">
                                             <label for="keyword">What</label>

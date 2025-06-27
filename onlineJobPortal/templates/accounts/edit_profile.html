@@ -73,9 +73,9 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <label>Profile Picture</label>
-                                    <input type="file" name="profile_picture" class="form-control mb-2">
+                                    {{ profile_form.profile_picture }}
                                     <label>User Name</label>
-                                    <input type="text" class="form-control" value="{{ user.username }}" name="username" readonly>
+                                    {{ user_form.username }}
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Current Picture</label><br>
@@ -83,44 +83,39 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <label>First Name</label>
-                                    <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}">
+                                    {{ user_form.first_name }}
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Last Name</label>
-                                    <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}">
+                                   {{ user_form.last_name }}
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Email</label>
-                                    <input type="email" class="form-control" name="email" value="{{ user.email }}">
+                                    {{ user_form.email }}
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Profession Title</label>
-                                    <input type="text" class="form-control" name="profession_title">
+                                    {{ profile_form.profession_title }}
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Date of Birth</label>
-                                    <input type="date" class="form-control" name="date_of_birth">
+                                    {{ profile_form.date_of_birth }}
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Gender</label>
-                                    <select name="gender" class="form-control">
-                                        <option value="">--Select--</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Other</option>
-                                    </select>
+                                    {{ profile_form.gender }}
                                 </div>
                                  <div class="col-lg-12">
                                     <label>Current Address</label>
-                                    <input type="text" class="form-control" name="current_address">
+                                    {{ profile_form.current_address }}
                                 </div>
                                 <div class="col-lg-12">
                                     <label>Permanent Address</label>
-                                    <input type="text" class="form-control" name="permanent_address">
+                                    {{ profile_form.permanent_address }}
                                 </div>
                                  <div class="col-lg-12">
                                     <label>Mobile Number</label>
-                                    <input type="text" class="form-control" name="phone_number">
+                                    {{user_form.phone_number }}
                                 </div>
                                 <div class="col-lg-12">
                                     <label>Major Skills</label>

@@ -1,7 +1,6 @@
 from django import forms
 from .models import Account,UserProfile
 
-
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Enter Password',
@@ -68,7 +67,6 @@ class AdminRegistrationForm(forms.ModelForm):
         self.fields['email'].widget.attrs['placeholder'] = 'Enter Email Address'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
-
 
 class UserForm(forms.ModelForm):
     class Meta:
