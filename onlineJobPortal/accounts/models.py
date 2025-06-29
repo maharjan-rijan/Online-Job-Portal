@@ -118,3 +118,14 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.first_name
+
+class EducationQualification(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    education_degree = models.CharField(max_length=100)
+    education_board = models.CharField(max_length=100)
+    education_institution = models.CharField(max_length=100)
+    graduation_year_from = models.DateField()
+    graduation_year_to = models.DateField()
+    
+    def __str__(self):
+        return self.user.first_name

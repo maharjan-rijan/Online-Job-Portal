@@ -1,5 +1,5 @@
 from django import forms
-from .models import Account,UserProfile
+from .models import Account, EducationQualification,UserProfile
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
@@ -71,7 +71,7 @@ class AdminRegistrationForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('first_name', 'last_name', 'phone_number')
+        fields = ('first_name', 'last_name', 'phone_number', 'email')
 
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
@@ -86,5 +86,23 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+
+class EducationForm(forms.ModelForm):
+    graduation_year_from = forms.CharField(widget=forms.DateInput(attrs={
+        'class': 'form-control',
+    }))
+    graduation_year_to = forms.CharField(widget=forms.DateInput(attrs={
+        'class': 'form-control',
+    }))
+    class Meta:
+        model = EducationQualification
+        fields = ('education_degree','education_board','education_institution','graduation_year_from','graduation_year_to')
+    def __init__(self, *args, **kwargs):
+        super(EducationForm, self).__init__(*args, **kwargs)
+        self.fields['education_degree'].widget.attrs['placeholder'] = 'Enter Education Degree'
+        self.fields['education_board'].widget.attrs['placeholder'] = 'Enter Board/University Name'
+        self.fields['education_institution'].widget.attrs['placeholder'] = 'Enter Institute/College Name'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'

@@ -74,12 +74,10 @@
                                 <div class="col-lg-6">
                                     <label>Profile Picture</label>
                                     {{ profile_form.profile_picture }}
-                                    <label>User Name</label>
-                                    {{ user_form.username }}
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Current Picture</label><br>
-                                    <img src="{{ userprofile.profile_picture.url }}" width="100" class="border rounded">
+                                    <img id="current_profile_picture" src="{% if profile_form.instance.profile_picture %}{{ profile_form.instance.profile_picture.url }}{% else %}/static/default.jpg{% endif %}" width="100" class="border rounded">
                                 </div>
                                 <div class="col-lg-6">
                                     <label>First Name</label>
@@ -140,20 +138,30 @@
             <div class="row">
                 <div class="col-lg-12">
                     <label>Educational Degree</label>
-                    <input type="text" name="degree[]" class="form-control" placeholder="e.g. BSc in IT">
+                    {{ edu_form.education_degree }}
                 </div>
                 <div class="col-lg-12">
                     <label>Educational Board</label>
-                    <input type="text" name="educational_board[]" class="form-control" placeholder="e.g. ABC University">
+                    {{ edu_form.education_board }}
                 </div>
                 <div class="col-lg-12">
                     <label>Name of Institution/College</label>
-                    <input type="text" name="institution_name[]" class="form-control" placeholder="e.g. Computer Science">
+                    {{ edu_form.education_institution }}
                 </div>
                 <div class="col-lg-12">
-                    <label>Year of Graduation</label>
-                    <input type="text" name="graduation_year[]" class="form-control" placeholder="e.g. 2024">
-                </div>
+    <label>Graduation Year</label>
+    <div class="row">
+        <div class="col-md-6">
+            {{ edu_form.graduation_year_from }}
+        </div>
+
+        <div class="col-md-6">
+            {{ edu_form.graduation_year_to }}
+        </div>
+       
+    </div>
+</div>
+
             </div>
             
         </div>
@@ -214,6 +222,25 @@
     </div>
 </section>
 <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+        const fileInput = document.querySelector('input[name="profile_picture"]');
+        const previewImage = document.getElementById("current_profile_picture");
+
+        if (fileInput) {
+            fileInput.addEventListener("change", function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+
     const tabs = document.querySelectorAll(".tab-content");
     const steps = document.querySelectorAll("#stepTabs li");
 

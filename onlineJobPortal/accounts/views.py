@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
 
 from job.models import Job
-from .forms import UserRegistrationForm, AdminRegistrationForm, UserForm, UserProfileForm, UserProfile
-from .models import Account
+from .forms import UserRegistrationForm, AdminRegistrationForm, UserForm, UserProfileForm, UserProfile,EducationForm
+from .models import Account, EducationQualification
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -212,26 +212,38 @@ def changePassword(request):
 @login_required(login_url='login')
 def edit_profile(request):
     userprofile = get_object_or_404(UserProfile, user=request.user)
+    eduProfile = get_object_or_404(EducationQualification,user=request.user)
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
+        edu_form = EducationForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid() and edu_form.is_valid():
             user_form.save()
             profile_form.save()
+            edu_form.save()
             messages.success(request, 'Your Profile has been updated.')
             return redirect('edit_profile')
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=userprofile)
+        edu_form = EducationForm(instance=eduProfile)
     context={
         'user_form':user_form,
-        'profile_form': profile_form
+        'profile_form': profile_form,
+        'edu_form':edu_form
     }
     return render(request, 'accounts/edit_profile.html', context)
 
 @login_required(login_url='login')
 def dashboard(request):
-    return render(request, 'pages/dashboard.html')
+    user= request.user
+    profile_form = UserProfile.objects.get(user=user)
+
+    context={
+        'profile_form': profile_form
+    }
+
+    return render(request, 'pages/dashboard.html',context)
 
 @login_required(login_url='login')
 def manageJob(request):

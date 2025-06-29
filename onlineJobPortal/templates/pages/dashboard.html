@@ -28,10 +28,9 @@
                                 <div class="row">
                                     <div class="col-lg-5 col-md-5 col-12">
                                         <div class="name-head">
-                                            <a class="mb-2" href="#"><img class="circle-54"
-                                                    src="assets/images/resume/avater.png" alt=""></a>
+                                            <img src="/media/{{ profile_form.profile_picture }}" class="img-thumbnail rounded-circle" alt="..." style="height:80px; width:80px;">
                                             <h4><a class="name" href="#">{{ user.full_name }}</a></h4>
-                                            <p><a class="deg" href="#">{{ user.username }}</a></p>
+                                            <p><a class="deg" href="#">{{ profile_form.profession_title }}</a></p>
                                             <ul class="social">
                                                 <li><a href="#"><i class="lni lni-facebook-original"></i></a></li>
                                                 <li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
@@ -47,7 +46,7 @@
                                             <!-- Single List -->
                                             <div class="single-list">
                                                 <h5 class="title">Location</h5>
-                                                <p>{{ user.address }}</p>
+                                                <p>{{ profile_form.permanent_address }}</p>
                                             </div>
                                             <!-- Single List -->
                                             <!-- Single List -->
