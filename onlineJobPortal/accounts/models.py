@@ -20,9 +20,9 @@ class MyAccountManager(BaseUserManager):
             company_name    = company_name,
             company_address = company_address,
         )
-        user.is_admin     = True
-        user.is_active    = True
-        user.is_staff     = False
+        user.is_admin      = True
+        user.is_active     = True
+        user.is_staff      = False
         user.is_superadmin = False
 
         user.set_password(password)
@@ -53,11 +53,11 @@ class MyAccountManager(BaseUserManager):
 
     def create_superuser(self, first_name, last_name, email, username, password):
         user = self.create_user(
-            email = self.normalize_email(email),
-            username = username,
-            password = password,
+            email      = self.normalize_email(email),
+            username   = username,
+            password   = password,
             first_name = first_name,
-            last_name = last_name,
+            last_name  = last_name,
         )
         user.is_admin      = True
         user.is_active     = True
@@ -108,24 +108,34 @@ class UserProfile(models.Model):
         ('female','Female'),
         ('other','Other'),
     )
-    user = models.OneToOneField(Account, on_delete=models.CASCADE)
-    profession_title = models.CharField(max_length=50)
-    date_of_birth = models.DateField()
-    current_address = models.CharField(blank=True, max_length=100)
-    permanent_address  = models.CharField(blank=True, max_length=100)
-    profile_picture = models.ImageField(blank=True, upload_to='userprofile')
-    gender = models.CharField(choices=Gender, max_length=20, default='no')
+    user              = models.OneToOneField(Account, on_delete=models.CASCADE)
+    profession_title  = models.CharField(max_length=50)
+    date_of_birth     = models.DateField()
+    current_address   = models.CharField(blank=True, max_length=100)
+    permanent_address = models.CharField(blank=True, max_length=100)
+    profile_picture   = models.ImageField(blank=True, upload_to='userprofile')
+    gender            = models.CharField(choices=Gender, max_length=20, default='no')
 
     def __str__(self):
         return self.user.first_name
 
 class EducationQualification(models.Model):
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    education_degree = models.CharField(max_length=100)
-    education_board = models.CharField(max_length=100)
+    user                  = models.ForeignKey(Account, on_delete=models.CASCADE)
+    education_degree      = models.CharField(max_length=100)
+    education_board       = models.CharField(max_length=100)
     education_institution = models.CharField(max_length=100)
-    graduation_year_from = models.DateField()
-    graduation_year_to = models.DateField()
+    graduation_year_from  = models.DateField()
+    graduation_year_to    = models.DateField()
+    
+    def __str__(self):
+        return self.user.first_name
+    
+class OtherInfo(models.Model):
+    user          = models.ForeignKey(Account, on_delete=models.CASCADE)
+    major_skill   = models.CharField(max_length=150, blank=True, null=True)
+    facebook_url  = models.CharField(max_length=150, blank=True, null=True)
+    instagram_url = models.CharField(max_length=150, blank=True, null=True)
+    linkedin_url  = models.CharField(max_length=150, blank=True, null=True)
     
     def __str__(self):
         return self.user.first_name

@@ -55,7 +55,6 @@
         <div class="row">
             <div class="col-lg-10 offset-lg-1 col-12">
                 <div class="add-resume-inner box">
-
                     <!-- Step Navigation Tabs -->
                     <ul class="step-tabs" id="stepTabs">
                         <li class="active" onclick="showTab(0)">Basic Info</li>
@@ -63,10 +62,8 @@
                         <li onclick="showTab(2)">Experience</li>
                         <li onclick="showTab(3)">Additional</li>
                     </ul>
-
                     <form class="form-ad" action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-
                         <!-- Step 1: Basic Info -->
                         <div class="tab-content active">
                             <h4>Basic Information</h4>
@@ -117,67 +114,59 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <label>Major Skills</label>
-                                    <input type="text" class="form-control" name="skills">
+                                    {{ other_info_form.major_skill }}
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end mt-4">
                                 <button type="button" class="btn btn-primary" onclick="showTab(1)">Next</button>
                             </div>
                         </div>
-
                        <!-- Step 2: Education -->
-<div class="tab-content">
-    <h4>Education Details</h4>
-
-    <div id="education-container">
-        <div class="education-entry border p-3 mb-3 rounded position-relative">
-            <!-- Remove Button -->
-            <button type="button" class="btn btn-sm btn-danger justify-content-end top-0 end-0 m-2 remove-btn" onclick="removeEducation(this)">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <div class="row">
-                <div class="col-lg-12">
-                    <label>Educational Degree</label>
-                    {{ edu_form.education_degree }}
-                </div>
-                <div class="col-lg-12">
-                    <label>Educational Board</label>
-                    {{ edu_form.education_board }}
-                </div>
-                <div class="col-lg-12">
-                    <label>Name of Institution/College</label>
-                    {{ edu_form.education_institution }}
-                </div>
-                <div class="col-lg-12">
-    <label>Graduation Year</label>
-    <div class="row">
-        <div class="col-md-6">
-            {{ edu_form.graduation_year_from }}
-        </div>
-
-        <div class="col-md-6">
-            {{ edu_form.graduation_year_to }}
-        </div>
-       
-    </div>
-</div>
-
-            </div>
-            
-        </div>
-    </div>
-    <div class="text-end">
-        <button type="button" class="btn btn-sm btn-outline-primary" onclick="addEducation()">Add Education</button>
-    </div>
-
-    <div class="d-flex justify-content-between mt-4">
-        <button type="button" class="btn btn-secondary" onclick="showTab(0)">Previous</button>
-        <button type="button" class="btn btn-primary" onclick="showTab(2)">Next</button>
-    </div>
-</div>
-   
-                        <!-- Step 3: Working Experience -->
                         <div class="tab-content">
+                            <h4>Education Details</h4>
+                            <div id="education-container">
+                                <div class="education-entry border p-3 mb-3 rounded position-relative">
+                                    <!-- Remove Button -->
+                                    <button type="button" class="btn btn-sm btn-danger justify-content-end top-0 end-0 m-2 remove-btn" onclick="removeEducation(this)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label>Educational Degree</label>
+                                            {{ edu_form.education_degree }}
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>Educational Board</label>
+                                            {{ edu_form.education_board }}
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>Name of Institution/College</label>
+                                            {{ edu_form.education_institution }}
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>Graduation Year</label>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ edu_form.graduation_year_from }}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ edu_form.graduation_year_to }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="addEducation()">Add Education</button>
+                            </div>
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-secondary" onclick="showTab(0)">Previous</button>
+                                <button type="button" class="btn btn-primary" onclick="showTab(2)">Next</button>
+                            </div>
+                        </div>
+                         <!-- Step 3: Working Experience -->
+                         <div class="tab-content">
                             <h4>Working Experiences</h4>
                             <div class="form-group">
                                 <label>Experience Details</label>
@@ -188,21 +177,21 @@
                                 <button type="button" class="btn btn-primary" onclick="showTab(3)">Next</button>
                             </div>
                         </div>
-
                         <!-- Step 4: Additional Info -->
                         <div class="tab-content">
                             <h4>Additional Information</h4>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <label>Facebook </label>
-                                    <input type="text" class="form-control" name="facebook_url" placeholder="facebook_url">
+                                    {{ other_info_form.facebook_url }}
                                 </div>
-                                 <div class="col-lg-12">
+                                <div class="col-lg-12">
                                     <label>LinkedIn </label>
-                                    <input type="text" class="form-control" name="linkedin_url" placeholder="linkedin_url">
-                                </div> <div class="col-lg-12">
+                                    {{ other_info_form.linkedin_url }}
+                                </div> 
+                                <div class="col-lg-12">
                                     <label>Instagram </label>
-                                    <input type="text" class="form-control" name="instagram_url" placeholder="instagram_url">
+                                    {{ other_info_form.instagram_url }}
                                 </div>
                                 <div class="col-lg-12">
                                     <label>Website </label>
@@ -210,12 +199,11 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between mt-4">
-                                   <button type="button" class="btn btn-secondary" onclick="showTab(3)">Previous</button>
+                                <button type="button" class="btn btn-secondary" onclick="showTab(3)">Previous</button>
                                 <button type="submit" class="btn btn-success">Save</button>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

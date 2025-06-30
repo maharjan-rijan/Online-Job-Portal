@@ -1,5 +1,5 @@
 from django import forms
-from .models import Account, EducationQualification,UserProfile
+from .models import Account, EducationQualification, OtherInfo,UserProfile
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
@@ -104,5 +104,18 @@ class EducationForm(forms.ModelForm):
         self.fields['education_degree'].widget.attrs['placeholder'] = 'Enter Education Degree'
         self.fields['education_board'].widget.attrs['placeholder'] = 'Enter Board/University Name'
         self.fields['education_institution'].widget.attrs['placeholder'] = 'Enter Institute/College Name'
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
+
+class OtherInfoForm(forms.ModelForm):
+    class Meta:
+        model = OtherInfo
+        fields = ('major_skill','facebook_url','instagram_url','linkedin_url')
+    def __init__(self, *args, **kwargs):
+        super(OtherInfoForm, self).__init__(*args, **kwargs)
+        self.fields['major_skill'].widget.attrs['placeholder'] = 'Enter Your Major Skill'
+        self.fields['facebook_url'].widget.attrs['placeholder'] = 'www.facebook.com'
+        self.fields['instagram_url'].widget.attrs['placeholder'] = 'www.instagram.com'
+        self.fields['linkedin_url'].widget.attrs['placeholder'] = 'www.linkedin.com'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'

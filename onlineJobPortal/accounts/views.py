@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, render, redirect
 
 from job.models import Job
-from .forms import UserRegistrationForm, AdminRegistrationForm, UserForm, UserProfileForm, UserProfile,EducationForm
-from .models import Account, EducationQualification
+from .forms import OtherInfoForm, UserRegistrationForm, AdminRegistrationForm, UserForm, UserProfileForm, UserProfile,EducationForm
+from .models import Account, EducationQualification, OtherInfo
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -213,24 +213,29 @@ def changePassword(request):
 def edit_profile(request):
     userprofile = get_object_or_404(UserProfile, user=request.user)
     eduProfile = get_object_or_404(EducationQualification,user=request.user)
+    otherInfo = get_object_or_404(OtherInfo,user=request.user)
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         edu_form = EducationForm(request.POST, instance=request.user)
+        other_info_form = OtherInfoForm(request.POST, instance=request.user)
         profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
-        if user_form.is_valid() and profile_form.is_valid() and edu_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid() and edu_form.is_valid() and other_info_form.is_valid():
             user_form.save()
             profile_form.save()
             edu_form.save()
+            other_info_form.save()
             messages.success(request, 'Your Profile has been updated.')
             return redirect('edit_profile')
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=userprofile)
         edu_form = EducationForm(instance=eduProfile)
+        other_info_form = OtherInfoForm(instance=otherInfo)
     context={
         'user_form':user_form,
         'profile_form': profile_form,
-        'edu_form':edu_form
+        'edu_form':edu_form,
+        'other_info_form':other_info_form
     }
     return render(request, 'accounts/edit_profile.html', context)
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Account, UserProfile, EducationQualification
+from .models import Account, UserProfile, EducationQualification, OtherInfo
 from django.utils.html import format_html
 
 # Register your models here.
@@ -24,7 +24,10 @@ class UserProfileAdmin(admin.ModelAdmin):
 class EducationQualificationAdmin (admin.ModelAdmin):
     list_display = ('education_degree','education_board','education_institution','graduation_year_from','graduation_year_to')
     
+class OtherInfoAdmin(admin.ModelAdmin):
+    list_display = ('user','major_skill','facebook_url','instagram_url','linkedin_url')
     
 admin.site.register(Account, AccountAdmin)
+admin.site.register(OtherInfo,OtherInfoAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(EducationQualification,EducationQualificationAdmin)
