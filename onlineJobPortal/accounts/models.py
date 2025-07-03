@@ -109,23 +109,23 @@ class UserProfile(models.Model):
         ('other','Other'),
     )
     user              = models.OneToOneField(Account, on_delete=models.CASCADE)
-    profession_title  = models.CharField(max_length=50)
-    date_of_birth     = models.DateField()
-    current_address   = models.CharField(blank=True, max_length=100)
-    permanent_address = models.CharField(blank=True, max_length=100)
-    profile_picture   = models.ImageField(blank=True, upload_to='userprofile')
-    gender            = models.CharField(choices=Gender, max_length=20, default='no')
+    profession_title  = models.CharField(max_length=50, blank=True,  null=True)
+    date_of_birth     = models.DateField(blank=True,  null=True)
+    current_address   = models.CharField(blank=True, max_length=100,  null=True)
+    permanent_address = models.CharField(blank=True, max_length=100,  null=True)
+    profile_picture   = models.ImageField(blank=True, upload_to='userprofile',  null=True)
+    gender            = models.CharField(choices=Gender, max_length=20, default='no',  null=True, blank=True)
 
     def __str__(self):
         return self.user.first_name
 
 class EducationQualification(models.Model):
     user                  = models.ForeignKey(Account, on_delete=models.CASCADE)
-    education_degree      = models.CharField(max_length=100)
-    education_board       = models.CharField(max_length=100)
-    education_institution = models.CharField(max_length=100)
-    graduation_year_from  = models.DateField()
-    graduation_year_to    = models.DateField()
+    education_degree      = models.CharField(max_length=100,blank=True, null=True)
+    education_board       = models.CharField(max_length=100,blank=True, null=True)
+    education_institution = models.CharField(max_length=100,blank=True, null=True)
+    graduation_year_from  = models.DateField(blank=True, null=True)
+    graduation_year_to    = models.DateField(blank=True, null=True)
     
     def __str__(self):
         return self.user.first_name

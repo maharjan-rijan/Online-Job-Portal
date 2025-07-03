@@ -88,7 +88,7 @@ def editJob(request, job_id):
         'form': form,
         'page_title': 'Edit Job'
     }
-    return render(request, 'admin/edit-job.html', context)
+    return render(request, 'job/edit-job.html', context)
 
 def deleteJob(request, job_id):
     job = get_object_or_404(Job, id=job_id)
